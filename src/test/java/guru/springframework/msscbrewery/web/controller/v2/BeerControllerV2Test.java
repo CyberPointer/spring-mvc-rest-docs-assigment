@@ -58,7 +58,7 @@ public class BeerControllerV2Test {
                 .beerName("ksiazece")
                 .beerStyle(BeerStyleEnum.ALE)
                 .upc(11l)
-                .id(beerUID)
+               // .id(beerUID)
                 .build();
 
     }
@@ -89,9 +89,9 @@ public class BeerControllerV2Test {
 
     @Test
     public void testHandlePost() throws Exception {
-        given(beerService.saveNewBeer(any(BeerDtoV2.class))).willReturn(beerToReturn);
-
         String beerDtoJson = objectMapper.writeValueAsString(beerToReturn);
+        beerToReturn.setId(beerUID);
+        given(beerService.saveNewBeer(any(BeerDtoV2.class))).willReturn(beerToReturn);
 
         ConstrainedFields fields = new ConstrainedFields(BeerDtoV2.class);
 
